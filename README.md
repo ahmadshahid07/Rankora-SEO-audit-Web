@@ -78,7 +78,6 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Environment Variables
 
@@ -107,7 +106,7 @@ Rankora is continuously evolving with new features, improvements, and optimizati
 **Skyths-Dev**  
 Developed by Ahmad Shahid
 
-- GitHub: [@Skyths-Dev](https://github.com/Skyths-Dev)
+- GitHub: [@Skyths-Dev](https://github.com/ahmadshahid07)
 - LinkedIn: [Ahmad Shahid](https://www.linkedin.com/in/ahmad-shahid-profile/)
 
 ## ⭐ Support
