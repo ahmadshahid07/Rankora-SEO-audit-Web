@@ -22,6 +22,9 @@ dist-ssr
 # Supabase CLI temp files
 supabase/.temp/
 
+# Vercel
+.vercel/
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
