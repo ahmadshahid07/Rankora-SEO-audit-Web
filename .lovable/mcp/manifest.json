@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://uoppvuoyeertzudnlass.supabase.co/auth/v1",
+    "accepted_audiences": ["authenticated"]
+  },
+  "mcp": {
+    "server": {
+      "name": "ai-rank-engine",
+      "version": "0.1.0",
+      "title": "AI Rank Engine"
+    },
+    "tools": [
+      {
+        "name": "list_projects",
+        "title": "List SEO projects",
+        "description": "List the signed-in user's Rankora SEO projects with their latest audit score.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_project",
+        "title": "Create SEO project",
+        "description": "Create a new Rankora SEO project for a website URL owned by the signed-in user.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 2,
+              "description": "Project name."
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Full website URL including https://"
+            },
+            "description": {
+              "type": "string",
+              "description": "Optional short description."
+            }
+          },
+          "required": ["name", "url"],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_audits",
+        "title": "List SEO audits",
+        "description": "List the signed-in user's recent Rankora SEO audits with scores and summaries.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "Optional exact URL filter."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "How many audits to return (default 20, max 100)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_audit",
+        "title": "Get audit detail",
+        "description": "Fetch one Rankora SEO audit by id, including its metrics, issues and recommendations.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Audit id from list_audits."
+            }
+          },
+          "required": ["id"],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_agent_runs",
+        "title": "List agent runs",
+        "description": "List recent Rankora AI agent runs (Atlas AI, SpiderX, Optimus, Backlink Beast, WriterMind) with scores and summaries.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "agent": {
+              "type": "string",
+              "description": "Optional agent name filter, e.g. 'SpiderX'."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "How many runs to return (default 20, max 100)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "run_agent",
+        "title": "Run an SEO agent",
+        "description": "Run one Rankora specialist agent on a URL and save the result. atlas = strategy, spiderx = technical crawl, optimus = performance, backlink-beast = authority/links, writermind = content.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "agent": {
+              "type": "string",
+              "enum": ["atlas", "spiderx", "optimus", "backlink-beast", "writermind"],
+              "description": "Which specialist agent to run."
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Full page URL to analyze, including https://"
+            }
+          },
+          "required": ["agent", "url"],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

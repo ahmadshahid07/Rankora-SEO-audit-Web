@@ -1,0 +1,630 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-royal: var(--royal);
+  --color-violet: var(--violet);
+  --color-emerald: var(--emerald);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Dark by default — Rankora */
+  --background: oklch(0.14 0.02 265);
+  --foreground: oklch(0.98 0.005 250);
+  --card: oklch(0.18 0.025 265);
+  --card-foreground: oklch(0.98 0.005 250);
+  --popover: oklch(0.18 0.025 265);
+  --popover-foreground: oklch(0.98 0.005 250);
+  --primary: oklch(0.62 0.22 275);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.24 0.03 265);
+  --secondary-foreground: oklch(0.98 0.005 250);
+  --muted: oklch(0.22 0.025 265);
+  --muted-foreground: oklch(0.68 0.03 260);
+  --accent: oklch(0.28 0.05 275);
+  --accent-foreground: oklch(0.98 0.005 250);
+  --destructive: oklch(0.62 0.25 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.28 0.03 265 / 60%);
+  --input: oklch(0.24 0.03 265);
+  --ring: oklch(0.62 0.22 275);
+
+  --royal: oklch(0.58 0.24 260);
+  --violet: oklch(0.62 0.24 300);
+  --emerald: oklch(0.72 0.18 165);
+
+  color-scheme: dark;
+}
+
+.light {
+  --background: oklch(0.99 0.003 250);
+  --foreground: oklch(0.16 0.03 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0.03 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.03 265);
+  --primary: oklch(0.55 0.24 275);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.01 260);
+  --secondary-foreground: oklch(0.16 0.03 265);
+  --muted: oklch(0.96 0.01 260);
+  --muted-foreground: oklch(0.5 0.02 260);
+  --accent: oklch(0.94 0.03 275);
+  --accent-foreground: oklch(0.16 0.03 265);
+  --border: oklch(0.9 0.01 260);
+  --input: oklch(0.94 0.01 260);
+  --ring: oklch(0.55 0.24 275);
+  color-scheme: light;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ============ Rankora visual system ============ */
+
+@utility glass {
+  background: color-mix(in oklab, var(--card) 55%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid color-mix(in oklab, white 8%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in oklab, white 6%, transparent) inset,
+    0 20px 60px -20px color-mix(in oklab, black 60%, transparent);
+}
+
+@utility glass-strong {
+  background: color-mix(in oklab, var(--card) 75%, transparent);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid color-mix(in oklab, white 10%, transparent);
+}
+
+@utility gradient-border {
+  position: relative;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, var(--royal), var(--violet), var(--emerald)) border-box;
+  border: 1px solid transparent;
+}
+
+@utility text-gradient {
+  background: linear-gradient(
+    120deg,
+    oklch(0.85 0.12 275),
+    oklch(0.78 0.18 300),
+    oklch(0.82 0.15 165)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility neon-glow {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--primary) 40%, transparent),
+    0 0 40px -8px color-mix(in oklab, var(--primary) 60%, transparent),
+    0 0 80px -20px color-mix(in oklab, var(--violet) 50%, transparent);
+}
+
+@utility aurora-bg {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, white 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, white 5%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+
+@keyframes aurora {
+  0%,
+  100% {
+    transform: translate(-10%, -10%) rotate(0deg);
+  }
+  50% {
+    transform: translate(10%, 10%) rotate(180deg);
+  }
+}
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-aurora {
+  animation: aurora 20s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--primary) 40%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* ============ Splash screen ============ */
+@keyframes splash-ring {
+  0% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+@keyframes splash-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes splash-letter {
+  0% {
+    transform: translateY(120%) rotateX(-70deg);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    transform: translateY(0) rotateX(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+@keyframes splash-bar {
+  0% {
+    width: 0%;
+  }
+  70% {
+    width: 88%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes splash-tag {
+  from {
+    opacity: 0;
+    letter-spacing: 0.6em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.35em;
+  }
+}
+
+.splash-ring {
+  animation: splash-ring 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+.splash-sweep {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    color-mix(in oklab, var(--primary) 45%, transparent) 40deg,
+    transparent 90deg
+  );
+  animation: splash-sweep 1.6s linear infinite;
+  mask-image: radial-gradient(circle, transparent 44%, black 46%);
+}
+.splash-letter {
+  display: inline-block;
+  animation: splash-letter 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.splash-tag {
+  animation: splash-tag 0.9s 0.7s ease-out both;
+}
+.splash-bar {
+  animation: splash-bar 1.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ============ Cursor glow ============ */
+.cursor-glow,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0;
+  will-change: transform;
+}
+.cursor-glow {
+  width: 420px;
+  height: 420px;
+  margin: -210px 0 0 -210px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--primary) 20%, transparent) 0%,
+    color-mix(in oklab, var(--violet) 12%, transparent) 35%,
+    transparent 68%
+  );
+  filter: blur(28px);
+  transition:
+    opacity 0.4s ease,
+    width 0.3s ease,
+    height 0.3s ease;
+}
+.cursor-glow[data-hot="1"] {
+  width: 540px;
+  height: 540px;
+  margin: -270px 0 0 -270px;
+}
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--primary) 90%, white);
+  box-shadow: 0 0 14px color-mix(in oklab, var(--primary) 80%, transparent);
+  transition: opacity 0.3s ease;
+}
+.light .cursor-glow {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--primary) 14%, transparent) 0%,
+    color-mix(in oklab, var(--violet) 9%, transparent) 38%,
+    transparent 70%
+  );
+}
+
+/* ============ Chatbot markdown ============ */
+.chat-md p {
+  margin: 0 0 0.6em;
+}
+.chat-md p:last-child {
+  margin-bottom: 0;
+}
+.chat-md ul,
+.chat-md ol {
+  margin: 0.4em 0 0.7em;
+  padding-left: 1.15em;
+}
+.chat-md ul {
+  list-style: disc;
+}
+.chat-md ol {
+  list-style: decimal;
+}
+.chat-md li {
+  margin: 0.18em 0;
+}
+.chat-md strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.chat-md a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.chat-md code {
+  background: color-mix(in oklab, var(--muted) 80%, transparent);
+  padding: 0.1em 0.35em;
+  border-radius: 0.35rem;
+  font-size: 0.85em;
+}
+.chat-md pre {
+  background: color-mix(in oklab, var(--muted) 80%, transparent);
+  padding: 0.7em 0.8em;
+  border-radius: 0.6rem;
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+.chat-md h1,
+.chat-md h2,
+.chat-md h3 {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0.6em 0 0.3em;
+}
+
+@keyframes chat-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes chat-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+.chat-message {
+  animation: chat-message-in 0.24s ease-out both;
+}
+.chat-bubble-user {
+  box-shadow: 0 5px 18px color-mix(in oklab, var(--primary) 18%, transparent);
+}
+.chat-bubble-assistant {
+  background: color-mix(in oklab, var(--card) 82%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
+}
+.chat-avatar {
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--primary) 22%, transparent);
+}
+.chat-typing-dot {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  animation: chat-typing 1.2s ease-in-out infinite;
+}
+.chat-typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.chat-typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-message,
+  .chat-typing-dot {
+    animation: none;
+  }
+}
+
+/* Light-theme adjustments for the glass system */
+.light .glass {
+  background: color-mix(in oklab, var(--card) 82%, transparent);
+  border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
+  box-shadow: 0 10px 40px -18px color-mix(in oklab, var(--foreground) 30%, transparent);
+}
+.light .glass-strong {
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+.light .grid-bg {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--foreground) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--foreground) 7%, transparent) 1px,
+      transparent 1px
+    );
+}
+.light .text-gradient {
+  background: linear-gradient(
+    120deg,
+    oklch(0.5 0.22 275),
+    oklch(0.5 0.24 300),
+    oklch(0.55 0.16 165)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ============ Cross-page transitions ============ */
+@keyframes page-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.995);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+@keyframes page-sweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0.95;
+  }
+  60% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+.page-enter {
+  animation: page-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.page-sweep {
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    color-mix(in oklab, var(--primary) 45%, transparent) 35%,
+    color-mix(in oklab, var(--violet, var(--primary)) 60%, transparent) 55%,
+    transparent 100%
+  );
+  animation: page-sweep 0.62s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .page-sweep {
+    animation: none;
+  }
+}
+
+/* ============ Scroll reveal & micro-interactions ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tilt-card {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+  transform-style: preserve-3d;
+}
+.tilt-card:hover {
+  transform: perspective(900px) rotateX(4deg) rotateY(-4deg) translateY(-6px);
+}
+
+.magnetic {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.25s ease;
+}
+.magnetic:hover {
+  transform: translateY(-2px) scale(1.03);
+  filter: brightness(1.1);
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x 32s linear infinite;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+@keyframes sticky-cta-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.sticky-cta {
+  animation: sticky-cta-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .tilt-card:hover,
+  .magnetic:hover {
+    transform: none;
+  }
+  .sticky-cta {
+    animation: none;
+  }
+}

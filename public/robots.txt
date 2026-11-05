@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /.mcp/
+Disallow: /.lovable/
+
+Sitemap: https://ai-rank-ace-29.lovable.app/sitemap.xml
