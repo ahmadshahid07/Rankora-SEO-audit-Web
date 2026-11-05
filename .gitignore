@@ -22,6 +22,9 @@ dist-ssr
 # Supabase CLI temp files
 supabase/.temp/
 
+# Local env files
+env.txt
+
 # Vercel
 .vercel/
 
