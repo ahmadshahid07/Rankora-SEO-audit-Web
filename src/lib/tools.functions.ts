@@ -16,7 +16,7 @@ export type MetaCheck = {
 };
 
 export const checkMetaTags = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) => UrlSchema.parse(raw))
+  .validator((raw: unknown) => UrlSchema.parse(raw))
   .handler(async ({ data }) => {
     const { safeFetchText } = await import("./safe-fetch.server");
     const { text, finalUrl } = await safeFetchText(normalizeUrl(data.url));
@@ -136,7 +136,7 @@ export const checkMetaTags = createServerFn({ method: "POST" })
   });
 
 export const testRobotsTxt = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     UrlSchema.extend({ path: z.string().max(500).optional() }).parse(raw),
   )
   .handler(async ({ data }) => {
@@ -210,7 +210,7 @@ export const testRobotsTxt = createServerFn({ method: "POST" })
   });
 
 export const validateSchema = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) => UrlSchema.parse(raw))
+  .validator((raw: unknown) => UrlSchema.parse(raw))
   .handler(async ({ data }) => {
     const { safeFetchText } = await import("./safe-fetch.server");
     const { text, finalUrl } = await safeFetchText(normalizeUrl(data.url));
@@ -273,7 +273,7 @@ export const validateSchema = createServerFn({ method: "POST" })
   });
 
 export const subscribeNewsletter = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({ email: z.string().email().max(200), source: z.string().max(60).optional() })
       .parse(raw),

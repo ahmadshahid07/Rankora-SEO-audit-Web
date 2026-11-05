@@ -4,7 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export const sendSupportMessage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         subject: z.string().trim().min(3, "Add a short subject").max(140),

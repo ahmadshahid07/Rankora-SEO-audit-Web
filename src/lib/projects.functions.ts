@@ -18,7 +18,7 @@ export const listProjects = createServerFn({ method: "GET" })
 
 export const createProject = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         name: z.string().trim().min(2).max(120),
@@ -44,7 +44,7 @@ export const createProject = createServerFn({ method: "POST" })
 
 export const deleteProject = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("projects")
@@ -57,7 +57,7 @@ export const deleteProject = createServerFn({ method: "POST" })
 
 export const getProjectDetail = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     const { data: project, error } = await context.supabase
       .from("projects")

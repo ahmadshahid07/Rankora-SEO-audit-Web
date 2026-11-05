@@ -6,7 +6,7 @@ const AgentIdSchema = z.enum(["atlas", "spiderx", "optimus", "backlink-beast", "
 
 export const runAgent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         agent: AgentIdSchema,

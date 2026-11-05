@@ -249,7 +249,7 @@ function buildLocalAudit(metrics: AuditResult["metrics"]) {
 
 export const runAudit = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => InputSchema.parse(raw))
+  .validator((raw: unknown) => InputSchema.parse(raw))
   .handler(async ({ data, context }): Promise<AuditResult> => {
     // 1) Fetch the page
     const started = Date.now();

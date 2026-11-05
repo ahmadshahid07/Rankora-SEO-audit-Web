@@ -18,7 +18,7 @@ export const getMyProfile = createServerFn({ method: "GET" })
 
 export const updateMyProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         full_name: z.string().trim().min(2, "Please enter your full name").max(120),
@@ -53,7 +53,7 @@ export const updateMyProfile = createServerFn({ method: "POST" })
 /** Records/refreshes a login heartbeat so the admin can see who is active. */
 export const recordPresence = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         provider: z.string().max(40).optional(),

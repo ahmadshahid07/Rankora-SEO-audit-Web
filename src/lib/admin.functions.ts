@@ -220,7 +220,7 @@ export const getAdminOverview = createServerFn({ method: "GET" })
 
 export const replyToMessage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ id: z.string().uuid(), reply: z.string().trim().min(1).max(4000) }).parse(raw),
   )
   .handler(async ({ data, context }) => {
@@ -235,7 +235,7 @@ export const replyToMessage = createServerFn({ method: "POST" })
 
 export const setMessageStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z.object({ id: z.string().uuid(), status: z.enum(["open", "replied", "closed"]) }).parse(raw),
   )
   .handler(async ({ data, context }) => {
@@ -252,7 +252,7 @@ export const setMessageStatus = createServerFn({ method: "POST" })
 
 export const upsertAnnouncement = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),
@@ -287,7 +287,7 @@ export const upsertAnnouncement = createServerFn({ method: "POST" })
 
 export const deleteAnnouncement = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { error } = await context.supabase.from("announcements").delete().eq("id", data.id);
@@ -299,7 +299,7 @@ export const deleteAnnouncement = createServerFn({ method: "POST" })
 
 export const upsertSiteDetail = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         id: z.string().uuid().optional(),
@@ -322,7 +322,7 @@ export const upsertSiteDetail = createServerFn({ method: "POST" })
 
 export const deleteSiteDetail = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
+  .validator((raw: unknown) => z.object({ id: z.string().uuid() }).parse(raw))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { error } = await context.supabase.from("site_details").delete().eq("id", data.id);
@@ -334,7 +334,7 @@ export const deleteSiteDetail = createServerFn({ method: "POST" })
 
 export const setUserRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         userId: z.string().uuid(),
@@ -363,7 +363,7 @@ export const setUserRole = createServerFn({ method: "POST" })
 
 export const enqueueAudit = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({ url: z.string().url(), priority: z.number().int().min(1).max(9).optional() })
       .parse(raw),
@@ -380,7 +380,7 @@ export const enqueueAudit = createServerFn({ method: "POST" })
 
 export const updateJobStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({
         jobId: z.string().uuid(),

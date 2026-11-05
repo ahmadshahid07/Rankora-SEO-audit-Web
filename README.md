@@ -32,12 +32,12 @@ Transform complex SEO data into clear insights and smarter optimization strategi
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|---|---|
-| Next.js | Full-stack web application |
-| TypeScript | Type-safe development |
-| React | Interactive user interface |
-| AI / LLM APIs | Intelligent SEO analysis |
+| Technology         | Purpose                       |
+| ------------------ | ----------------------------- |
+| Next.js            | Full-stack web application    |
+| TypeScript         | Type-safe development         |
+| React              | Interactive user interface    |
+| AI / LLM APIs      | Intelligent SEO analysis      |
 | CSS / UI Libraries | Responsive design and styling |
 
 ## ⚙️ How It Works
@@ -77,7 +77,6 @@ npm install
 # Start the development server
 npm run dev
 ```
-
 
 ### Environment Variables
 

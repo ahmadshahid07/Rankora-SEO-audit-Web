@@ -108,7 +108,7 @@ function localRankReply(messages: z.infer<typeof ChatSchema>["messages"]): strin
 }
 
 export const chatWithRankora = createServerFn({ method: "POST" })
-  .inputValidator((raw: unknown) => ChatSchema.parse(raw))
+  .validator((raw: unknown) => ChatSchema.parse(raw))
   .handler(async ({ data }) => {
     if (!process.env.LOVABLE_API_KEY) {
       return { reply: localRankReply(data.messages) };

@@ -39,7 +39,7 @@ export const listSavedProperties = createServerFn({ method: "GET" })
 
 export const setPrimaryProperty = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ siteUrl: z.string().min(1) }).parse(raw))
+  .validator((raw: unknown) => z.object({ siteUrl: z.string().min(1) }).parse(raw))
   .handler(async ({ data, context }) => {
     const clear = await context.supabase
       .from("gsc_sites")
@@ -60,7 +60,7 @@ export const setPrimaryProperty = createServerFn({ method: "POST" })
 /** Detaches a property from the workspace. Audits and agent runs are kept. */
 export const removeSavedProperty = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) => z.object({ siteUrl: z.string().min(1) }).parse(raw))
+  .validator((raw: unknown) => z.object({ siteUrl: z.string().min(1) }).parse(raw))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("gsc_sites")
@@ -73,7 +73,7 @@ export const removeSavedProperty = createServerFn({ method: "POST" })
 
 export const getSearchConsolePerformance = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((raw: unknown) =>
+  .validator((raw: unknown) =>
     z
       .object({ siteUrl: z.string().min(1), days: z.number().int().min(1).max(180).optional() })
       .parse(raw),
